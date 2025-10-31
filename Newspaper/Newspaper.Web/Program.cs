@@ -1,12 +1,16 @@
+using Microsoft.AspNetCore.Identity;
 using NewsPaper.DataAccess.Data;
 using NewsPaper.DataAccess.Extensions;
 using Newspaper.Domain.Entities;
+using Newspaper.Web.Infrastructure.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false).AddEntityFrameworkStores<AppDbContext>();
+builder.Services.AddIdentity<User, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
+    .AddEntityFrameworkStores<AppDbContext>();
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages();
 
 builder.Services.AddDataAccess(builder.Configuration);
 
@@ -21,14 +25,19 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseRouting();
 
+app.UseAuthentication();  
 app.UseAuthorization();
 
 app.MapStaticAssets();
+app.MapRazorPages();
 
 app.MapControllerRoute(
         name: "default",
         pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
 
+using var scope = app.Services.CreateScope();
+var services = scope.ServiceProvider;
+await DataSeeder.InitializeAdminsAsync(services);
 
 app.Run();

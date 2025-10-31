@@ -7,10 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Infrastructure\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\Newspaper.Application\Newspaper.Application.csproj" />
       <ProjectReference Include="..\NewsPaper.DataAccess\NewsPaper.DataAccess.csproj" />
       <ProjectReference Include="..\Newspaper.Domain\Newspaper.Domain.csproj" />
