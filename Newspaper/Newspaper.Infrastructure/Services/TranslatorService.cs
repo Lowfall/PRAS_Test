@@ -8,7 +8,9 @@ namespace Newspaper.Infrastructure.Services;
 public record TranslationResponse(OutputItem[] Outputs);
 public record OutputItem(string Output);
 
-public class TranslatorService(HttpClient httpClient, IOptions<ExternalServicesOptions> options): ITranslatorService
+public class TranslatorService(
+    HttpClient httpClient, 
+    IOptions<ExternalServicesOptions> options): ITranslatorService
 {
     private const string RUSSIAN_ABBREVIATION = "ru";
     private const string ENGLISH_ABBREVIATION = "en";

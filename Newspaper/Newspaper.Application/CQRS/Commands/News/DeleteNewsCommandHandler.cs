@@ -7,7 +7,9 @@ namespace Newspaper.Application.CQRS.Commands.News;
 
 public record DeleteNewsCommand(int NewsId) : IRequest;
 
-public class DeleteNewsCommandHandler(INewsRepository newsRepository, IImageService imageService) : IRequestHandler<DeleteNewsCommand>
+public class DeleteNewsCommandHandler(
+    INewsRepository newsRepository, 
+    IImageService imageService) : IRequestHandler<DeleteNewsCommand>
 {
     public async Task Handle(DeleteNewsCommand request, CancellationToken cancellationToken)
     {
