@@ -22,4 +22,13 @@ public class NewsController(IMediator mediator) : Controller
         
         return View("Home");
     }
+
+    public async Task<IActionResult> Delete(int newsId, CancellationToken cancellationToken)
+    {
+        var command = new DeleteNewsCommand(newsId);
+        
+        await mediator.Send(command, cancellationToken);
+        
+        return View("Home");
+    }
 }
