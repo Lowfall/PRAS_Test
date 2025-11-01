@@ -10,9 +10,12 @@
       <ProjectReference Include="..\Newspaper.Application\Newspaper.Application.csproj" />
       <ProjectReference Include="..\NewsPaper.DataAccess\NewsPaper.DataAccess.csproj" />
       <ProjectReference Include="..\Newspaper.Domain\Newspaper.Domain.csproj" />
+      <ProjectReference Include="..\Newspaper.Infrastructure\Newspaper.Infrastructure.csproj" />
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="Mapster" Version="7.4.0" />
+      <PackageReference Include="MediatR" Version="13.1.0" />
       <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="9.0.10" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.10">
         <PrivateAssets>all</PrivateAssets>

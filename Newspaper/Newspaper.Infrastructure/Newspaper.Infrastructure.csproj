@@ -11,20 +11,15 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="DTOs\News\Response\" />
+      <PackageReference Include="CloudinaryDotNet" Version="1.27.8" />
+      <PackageReference Include="Microsoft.Extensions.Http" Version="9.0.10" />
+      <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="9.0.10" />
     </ItemGroup>
 
     <ItemGroup>
       <Reference Include="Microsoft.AspNetCore.Http.Features">
         <HintPath>C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\9.0.6\Microsoft.AspNetCore.Http.Features.dll</HintPath>
       </Reference>
-    </ItemGroup>
-
-    <ItemGroup>
-      <PackageReference Include="Mapster" Version="7.4.0" />
-      <PackageReference Include="Mapster.DependencyInjection" Version="1.0.1" />
-      <PackageReference Include="MediatR" Version="13.1.0" />
-      <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.10" />
     </ItemGroup>
 
 </Project>
