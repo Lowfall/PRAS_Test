@@ -15,7 +15,8 @@ public class NewsController(IMediator mediator) : Controller
     
     public async Task<IActionResult> Create(CreateNewsDTO model, CancellationToken cancellationToken)
     {
-        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); 
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        
         var command = new CreateNewsCommand(userId, model);
         
         await mediator.Send(command, cancellationToken);
@@ -26,6 +27,15 @@ public class NewsController(IMediator mediator) : Controller
     public async Task<IActionResult> Delete(int newsId, CancellationToken cancellationToken)
     {
         var command = new DeleteNewsCommand(newsId);
+        
+        await mediator.Send(command, cancellationToken);
+        
+        return View("Home");
+    }
+    
+    public async Task<IActionResult> Update(UpdateNewsDTO model, CancellationToken cancellationToken)
+    {
+        var command = new UpdateNewsCommand(model);
         
         await mediator.Send(command, cancellationToken);
         

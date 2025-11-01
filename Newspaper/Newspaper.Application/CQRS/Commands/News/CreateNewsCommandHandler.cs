@@ -10,7 +10,10 @@ namespace Newspaper.Application.CQRS.Commands.News;
 
 public record CreateNewsCommand(string UserId, CreateNewsDTO Model) : IRequest;
 
-public class CreateNewsCommandHandler(ITranslatorService translatorService, IImageService imageService, INewsRepository newsRepository) : IRequestHandler<CreateNewsCommand>
+public class CreateNewsCommandHandler(
+    ITranslatorService translatorService, 
+    IImageService imageService, 
+    INewsRepository newsRepository) : IRequestHandler<CreateNewsCommand>
 {
     public async Task Handle(CreateNewsCommand request, CancellationToken cancellationToken)
     {
