@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Newspaper.Application", "Ne
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsPaper.DataAccess", "NewsPaper.DataAccess\NewsPaper.DataAccess.csproj", "{B124DA49-62A3-4864-887E-E317FF33FEEF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Newspaper.Infrastructure", "Newspaper.Infrastructure\Newspaper.Infrastructure.csproj", "{FA8CD180-0F87-48ED-8694-C905AD8FDCCF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{B124DA49-62A3-4864-887E-E317FF33FEEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B124DA49-62A3-4864-887E-E317FF33FEEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B124DA49-62A3-4864-887E-E317FF33FEEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA8CD180-0F87-48ED-8694-C905AD8FDCCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA8CD180-0F87-48ED-8694-C905AD8FDCCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA8CD180-0F87-48ED-8694-C905AD8FDCCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA8CD180-0F87-48ED-8694-C905AD8FDCCF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

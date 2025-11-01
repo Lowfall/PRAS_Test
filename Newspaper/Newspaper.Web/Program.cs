@@ -1,7 +1,10 @@
+using System.Reflection;
 using Microsoft.AspNetCore.Identity;
+using Newspaper.Application.Extensions;
 using NewsPaper.DataAccess.Data;
 using NewsPaper.DataAccess.Extensions;
 using Newspaper.Domain.Entities;
+using Newspaper.Infrastructure.Extensions;
 using Newspaper.Web.Infrastructure.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +16,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
 builder.Services.AddDataAccess(builder.Configuration);
+builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddApplication();
 
 var app = builder.Build();
 
