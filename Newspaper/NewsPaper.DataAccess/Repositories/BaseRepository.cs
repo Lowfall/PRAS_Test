@@ -15,6 +15,11 @@ public class BaseRepository <TEntity> : IBaseRepository<TEntity> where  TEntity 
         _dbSet = dbContext.Set<TEntity>();
     }
 
+    public async Task<int> GetAmountAsync()
+    {
+        return await _dbSet.AsNoTracking().CountAsync();
+    }
+    
     public async Task<TEntity> GetByIdAsync<TKey>(TKey id, CancellationToken cancellationToken)
     {
         return await _dbSet.FindAsync(id, cancellationToken);

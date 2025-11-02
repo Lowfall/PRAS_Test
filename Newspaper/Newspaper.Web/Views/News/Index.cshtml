@@ -1,0 +1,58 @@
+@model List<Newspaper.Web.Models.Home.NewsViewModel>
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+
+<div class="container mt-5 position-relative">
+    @{
+        if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+        {
+            <a asp-controller="News" asp-action="CreationPage"
+               class="btn btn-success m-2 d-flex justify-content-center align-items-center">
+                <span class="fw-bold text-black">@Localizer["CreateTitle"]</span>
+            </a>
+        }
+    }
+    <div class="text-center mt-3" id="newsContainer">
+       
+        <partial name="_NewsListPartial" model="@Model"/>
+    </div>
+    <div class="text-center mt-3">
+        <button onClick="loadMore()" id="loadMoreBtn" class="btn btn-primary"
+                data-page="1" data-totalpages="@ViewData["TotalPages"]"
+                style="background-color: black; border-color: black;">
+            @Localizer["LoadMore"]
+        </button>
+    </div>
+</div>
+
+
+
+
+<script>
+
+    async function loadMore() {
+        const newsContainer = document.getElementById('newsContainer');
+        const loadMoreBtn = document.getElementById('loadMoreBtn');
+
+        let currentPage = parseInt(loadMoreBtn.dataset.page) + 1;
+
+        const response = await fetch(`@Url.Action("LoadMore", "News")?page=${currentPage}`);
+        if (!response.ok) return;
+
+        const html = await response.text();
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = html;
+
+        while (tempDiv.firstChild) {
+            newsContainer.appendChild(tempDiv.firstChild);
+        }
+
+        loadMoreBtn.dataset.page = currentPage;
+
+        if (currentPage >= loadMoreBtn.dataset.totalpages) {
+            loadMoreBtn.style.display = 'none';
+        }
+    }
+
+</script>
