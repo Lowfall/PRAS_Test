@@ -1,0 +1,25 @@
+services:
+    news-database:
+        image: postgres
+        container_name: newspaper.database
+        ports: 
+            - 5432:5432
+        environment:
+            POSTGRES_USER: NewsAdmin
+            POSTGRES_PASSWORD: NewsPassword
+            POSTGRES_DB: NewspaperDB
+        networks: 
+            - news_network
+    
+    news-adminer:
+        image: adminer
+        container_name: news.db.adminer
+        ports:
+            - 8080:8080
+        networks: 
+            - news_network
+        depends_on:
+            - news-database
+
+networks:
+    news_network:

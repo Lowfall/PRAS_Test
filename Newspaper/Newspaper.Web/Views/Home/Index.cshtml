@@ -1,0 +1,18 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+
+@model List<Newspaper.Web.Models.Home.NewsViewModel>
+
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = Localizer["HomePage"];
+}
+
+<div class="container mt-5">
+    <div class="text-center mb-3">
+        <h2>@Localizer["LatestNews"]</h2>
+    </div>
+    <div>
+        <partial name="_NewsListPartial" model="@Model"/>
+    </div>
+</div>

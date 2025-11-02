@@ -1,0 +1,107 @@
+@using System.Globalization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Newspaper.Domain.Enums
+
+@inject IViewLocalizer Localizer
+
+@model Newspaper.Web.Models.Home.NewsViewModel
+
+
+@{
+    var culture = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+    
+    var language = culture switch
+    {
+        "ru" => Languages.Russian,
+        "en" => Languages.English,
+        _ => Languages.Russian
+    };
+}
+
+
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">@Localizer["Header"]</h2>
+    @{
+        var translation = Model.Translations.FirstOrDefault(t => t.Language == language);
+   
+        <div>
+            <div class="mb-3">
+                <label class="form-label fw-bold">@Localizer["Title"]</label>
+                <input asp-for="@translation.Title" class="form-control" placeholder="@Localizer["TitlePlaceholder"]" id="Title"/>
+                <span id="TitleError" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-bold"> @Localizer["SubTitle"]</label>
+                <input asp-for="@translation.Subtitle" class="form-control" placeholder="@Localizer["SubTitlePlaceholder"]" id="SubTitle"/>
+                <span id="SubTitleError" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-bold">@Localizer["Content"]</label>
+                <textarea asp-for="@translation.Content" class="form-control" rows="6" placeholder="@Localizer["ContentPlaceholder"]" id="Content"></textarea>
+                <span id="ContentError" class="text-danger" ></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-bold">@Localizer["ImagePlaceholder"]</label>
+                <input id="Image" type="file" class="form-control" accept="image/*" />
+                <span id="ImageError" class="text-danger"></span>
+            </div>
+
+            <input type="hidden" id="NewsId" asp-for="@Model.Id"/>
+
+            <div class="d-grid">
+                <button onclick="Edit()" class="btn btn-primary btn-lg">@Localizer["SubmitText"]</button>
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        async function Edit(){
+            const formData = new FormData();
+            formData.append("NewsId", document.getElementById("NewsId").value);
+            formData.append("Title", document.getElementById("Title").value);
+            formData.append("SubTitle", document.getElementById("SubTitle").value);
+            formData.append("Content", document.getElementById("Content").value);
+
+            const imageInput = document.getElementById("Image");
+            if (imageInput.files.length > 0) {
+                formData.append("Image", imageInput.files[0]);
+            }
+
+            const response = await fetch("/News/Update", {
+                method: "PATCH",
+                body: formData
+            });
+
+            if (response.ok) {
+                location.href = "/News";
+            } else if (response.status === 400) {
+                const errors = await response.json();
+                
+                document.querySelectorAll(".text-danger").forEach(el => el.innerText = "");
+
+                const keyToIdMap = {
+                    "Title": "TitleError",
+                    "SubTitle": "SubTitleError",
+                    "Content": "ContentError",
+                    "Image": "ImageError"
+                };
+
+                for (const key in errors) {
+                    const errorSpan = document.getElementById(keyToIdMap[key]);
+                    if (errorSpan) {
+                        errorSpan.innerText = errors[key]
+                    }
+                }
+            } else {
+                alert("Error updating news.");
+            }
+
+        }
+        
+    </script>
+}

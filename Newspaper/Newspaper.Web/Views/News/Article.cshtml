@@ -1,0 +1,47 @@
+@using System.Globalization
+@using Newspaper.Domain.Enums
+@model Newspaper.Web.Models.Home.NewsViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+
+@{
+    var culture = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+    
+    var language = culture switch
+    {
+        "ru" => Languages.Russian,
+        "en" => Languages.English,
+        _ => Languages.Russian
+    };
+}
+
+<div class="card mb-4 shadow-sm">
+    @{
+        if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+        {
+            <a asp-controller="News" asp-action="UpdatePage" asp-route-id="@Model.Id"
+               class="btn btn-success m-2 d-flex justify-content-center align-items-center">
+                <span class="fw-bold text-black">@Localizer["EditTitle"]</span>
+            </a>
+        }
+    }
+    <img src="@Model.ImageUrl" class="card-img-top img-fluid" alt="News Image"/>
+
+    <div class="card-body">
+        @{
+            var translation = Model.Translations.FirstOrDefault(t => t.Language == language);
+        }
+
+        @if (translation != null)
+        {
+            <h1 class="card-title display-6 text-truncate">@translation.Title</h1>
+            <h3 class="card-subtitle mb-2 text-muted text-truncate">@translation.Subtitle</h3>
+        }
+
+        <small class="text-muted mb-2 d-block">@Model.CreatedAt.ToString("dd MMM yyyy")</small>
+
+        <p class="card-text" style="max-height: 150px; overflow: hidden;">@translation?.Content</p>
+    </div>
+</div>
+

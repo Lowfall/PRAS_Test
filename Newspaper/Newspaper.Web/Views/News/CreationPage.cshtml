@@ -1,0 +1,41 @@
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+
+@model Newspaper.Application.DTOs.News.Request.CreateNewsDTO
+
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">@Localizer["Header"]</h2>
+
+    <form asp-action="Create" asp-controller="News" method="post" enctype="multipart/form-data" class="p-4 border rounded shadow-sm bg-light">
+        <div class="mb-3">
+            <label class="form-label fw-bold">@Localizer["Title"]</label>
+            <input asp-for="Title" class="form-control" placeholder="@Localizer["TitlePlaceholder"]" />
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label fw-bold"> @Localizer["SubTitle"]</label>
+            <input asp-for="SubTitle" class="form-control" placeholder="@Localizer["SubTitlePlaceholder"]" />
+            <span asp-validation-for="SubTitle" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label fw-bold">@Localizer["Content"]</label>
+            <textarea asp-for="Content" class="form-control" rows="6" placeholder="@Localizer["ContentPlaceholder"]"></textarea>
+            <span asp-validation-for="Content" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Image" class="form-label fw-bold">@Localizer["ImagePlaceholder"]</label>
+            <input asp-for="Image" type="file" class="form-control" accept="image/*" />
+            <span asp-validation-for="Image" class="text-danger"></span>
+        </div>
+
+        <input type="hidden" asp-for="UserId" value="@User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value" />
+
+        <div class="d-grid">
+            <button type="submit" class="btn btn-primary btn-lg">@Localizer["SubmitText"]</button>
+        </div>
+    </form>
+</div>
