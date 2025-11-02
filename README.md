@@ -25,7 +25,7 @@
 
 ```
 "ConnectionStrings": {
-    "DefaultConnection": "g"
+    "DefaultConnection": ""
   },
   "ExternalServicesOptions": {
     "CloudinaryOptions": {
