@@ -28,25 +28,25 @@
             <div class="mb-3">
                 <label class="form-label fw-bold">@Localizer["Title"]</label>
                 <input asp-for="@translation.Title" class="form-control" placeholder="@Localizer["TitlePlaceholder"]" id="Title"/>
-                <span asp-validation-for="@translation.Title" class="text-danger"></span>
+                <span id="TitleError" class="text-danger"></span>
             </div>
 
             <div class="mb-3">
                 <label class="form-label fw-bold"> @Localizer["SubTitle"]</label>
                 <input asp-for="@translation.Subtitle" class="form-control" placeholder="@Localizer["SubTitlePlaceholder"]" id="SubTitle"/>
-                <span asp-validation-for="@translation.Subtitle" class="text-danger"></span>
+                <span id="SubTitleError" class="text-danger"></span>
             </div>
 
             <div class="mb-3">
                 <label class="form-label fw-bold">@Localizer["Content"]</label>
                 <textarea asp-for="@translation.Content" class="form-control" rows="6" placeholder="@Localizer["ContentPlaceholder"]" id="Content"></textarea>
-                <span asp-validation-for="@translation.Content" class="text-danger"></span>
+                <span id="ContentError" class="text-danger" ></span>
             </div>
 
             <div class="mb-3">
                 <label class="form-label fw-bold">@Localizer["ImagePlaceholder"]</label>
                 <input id="Image" type="file" class="form-control" accept="image/*" />
-                <span class="text-danger"></span>
+                <span id="ImageError" class="text-danger"></span>
             </div>
 
             <input type="hidden" id="NewsId" asp-for="@Model.Id"/>
@@ -79,9 +79,28 @@
 
             if (response.ok) {
                 location.href = "/News";
+            } else if (response.status === 400) {
+                const errors = await response.json();
+                
+                document.querySelectorAll(".text-danger").forEach(el => el.innerText = "");
+
+                const keyToIdMap = {
+                    "Title": "TitleError",
+                    "SubTitle": "SubTitleError",
+                    "Content": "ContentError",
+                    "Image": "ImageError"
+                };
+
+                for (const key in errors) {
+                    const errorSpan = document.getElementById(keyToIdMap[key]);
+                    if (errorSpan) {
+                        errorSpan.innerText = errors[key]
+                    }
+                }
             } else {
                 alert("Error updating news.");
             }
+
         }
         
     </script>
