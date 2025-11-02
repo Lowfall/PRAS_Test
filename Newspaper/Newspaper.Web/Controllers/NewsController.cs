@@ -97,6 +97,11 @@ public class NewsController(IMediator mediator) : Controller
     [Authorize (Roles = "Admin")]
     public async Task<IActionResult> Update(UpdateNewsDTO model, CancellationToken cancellationToken)
     {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState); 
+        }
+        
         var command = new UpdateNewsCommand(model);
         
         await mediator.Send(command, cancellationToken);

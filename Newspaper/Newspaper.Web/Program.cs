@@ -1,4 +1,5 @@
 using System.Reflection;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Identity;
 using Newspaper.Application.Extensions;
 using NewsPaper.DataAccess.Data;
@@ -6,6 +7,7 @@ using NewsPaper.DataAccess.Extensions;
 using Newspaper.Domain.Entities;
 using Newspaper.Infrastructure.Extensions;
 using Newspaper.Web.Infrastructure.Helpers;
+using Newspaper.Web.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,7 +19,8 @@ builder.Services.AddIdentity<User, IdentityRole>(options => options.SignIn.Requi
 builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews()
     .AddDataAnnotationsLocalization()
-    .AddViewLocalization();
+    .AddViewLocalization()
+    .AddFluentValidation(validator => validator.RegisterValidatorsFromAssemblyContaining<UpdateNewsDTOValidator>());;
 
 builder.Services.AddDataAccess(builder.Configuration);
 builder.Services.AddInfrastructure(builder.Configuration);
