@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+            
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="Content" xml:space="preserve">
+        <value>Текст новости</value>
+    </data>
+    <data name="ContentPlaceholder" xml:space="preserve">
+        <value>Введите текст новости</value>
+    </data>
+    <data name="Header" xml:space="preserve">
+        <value>Изменить новостную статью</value>
+    </data>
+    <data name="ImagePlaceholder" xml:space="preserve">
+        <value>Загрузить картинку</value>
+    </data>
+    <data name="SubmitText" xml:space="preserve">
+        <value>Изменить</value>
+    </data>
+    <data name="SubTitle" xml:space="preserve">
+        <value>Подзаголовок</value>
+    </data>
+    <data name="SubTitlePlaceholder" xml:space="preserve">
+        <value>Введите подзаголовок</value>
+    </data>
+    <data name="Title" xml:space="preserve">
+        <value>Заголовок</value>
+    </data>
+    <data name="TitlePlaceholder" xml:space="preserve">
+        <value>Введите заголовок новости</value>
+    </data>
+</root>
